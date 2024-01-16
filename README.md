@@ -56,14 +56,24 @@ Please note that as run_pl.sh is a Bash script you should be able to execute it 
 ## Results
 
 Topology:
+
 ![2024-01-16 19_38_19-MPLS_VPN_NOTHING_CONF - GNS3](https://github.com/agnieszkowe/VPN_MPLS/assets/56120693/6ebb50db-8bb7-427d-a8dc-0a81288277c7)
 
+
+
 Traceroute and ping from device CE1A towards network behind CE2A:
+
 ![2024-01-16 18_33_39-Window](https://github.com/agnieszkowe/VPN_MPLS/assets/56120693/62ccfa00-a336-48ec-93d0-3bdabe5afeb7)
 
+
+
 Traceroute and ping from device CE2A towards network behind CE1A:
+
 ![2024-01-16 18_34_04-Window](https://github.com/agnieszkowe/VPN_MPLS/assets/56120693/2cf82cd9-0ce5-4343-a927-92901f91c880)
 
+
 Devices P1, P2, PE1, PE2 cannot reach the networks behind CEs:
+
 ![2024-01-16 19_42_38-MPLS_VPN_NOTHING_CONF - GNS3](https://github.com/agnieszkowe/VPN_MPLS/assets/56120693/6c4f09aa-e975-431d-bf7c-ce7a48aad2fb)
+
 ![2024-01-16 19_42_17-P2](https://github.com/agnieszkowe/VPN_MPLS/assets/56120693/1cfadabd-9c0c-4a5d-8fa4-cd4c09d44389)
