@@ -1,0 +1,29 @@
+---
+- name: Configure MPLS on P1
+  hosts: P1
+  gather_facts: false
+  connection: local
+
+  vars:
+    cli:
+      username: cisco
+      password: cisco
+
+  tasks:
+    - name: configure MPLS on P1
+      ios_config:
+        provider: "{{ cli }}"
+        authorize: yes
+        parents:
+          - interface FastEthernet0/0
+        lines:
+          - mpls ip
+
+    - name: configure MPLS on P1
+      ios_config:
+        provider: "{{ cli }}"
+        authorize: yes
+        parents:
+          - interface FastEthernet1/0
+        lines:
+          - mpls ip

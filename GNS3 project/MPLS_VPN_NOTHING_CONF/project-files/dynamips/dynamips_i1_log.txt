@@ -1,0 +1,10 @@
+Jan 14 17:08:03.628 HYPERVISOR: Release 0.2.17-x86/Windows (tag 2017072410)
+Jan 14 17:08:03.629 HYPERVISOR: Started on IP = localhost, TCP port = 53753.
+Jan 14 17:08:03.825 HYPERVISOR: exec_cmd: hypervisor version 
+Jan 14 17:08:03.825 HYPERVISOR: exec_cmd: hypervisor working_dir C:\Users\azzie\GNS3\projects\MPLS_VPN_NOTHING_CONF\project-files\dynamips 
+Jan 14 17:08:03.830 GENERAL: working_dir=C:\Users\azzie\GNS3\projects\MPLS_VPN_NOTHING_CONF\project-files\dynamips
+Jan 14 17:08:03.831 HYPERVISOR: exec_cmd: ethsw create Switch1 
+Jan 14 17:08:07.687 HYPERVISOR: exec_cmd: ethsw delete Switch1 
+Jan 14 17:08:07.688 HYPERVISOR: exec_cmd: hypervisor stop 
+Jan 14 17:08:07.916 HYPERVISOR: Stopped.
+Jan 14 17:08:07.916 GENERAL: reset done.

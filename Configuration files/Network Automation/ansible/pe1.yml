@@ -1,0 +1,117 @@
+---
+- name: Configure MPLS on PE1
+  hosts: PE1
+  gather_facts: false
+  connection: local
+
+  vars:
+    cli:
+      username: cisco
+      password: cisco
+
+  tasks:
+
+    - name: Configure MPLS on PE1 interface FastEthernet1/0
+      ios_config:
+        provider: "{{ cli }}"
+        authorize: yes
+        parents:
+          - interface FastEthernet1/0
+        lines:
+          - mpls ip
+
+    - name: Configure PE1 VRF Customer_A
+      ios_config:
+        provider: "{{ cli }}"
+        authorize: yes
+        parents:
+          - ip vrf Customer_A
+        lines:
+          - rd 65000:1
+          - route-target export 65000:1
+          - route-target import 65000:1
+          - exit
+
+    - name: Configure PE1 VRF Customer_A - Interface FastEthernet0/0
+      ios_config:
+        provider: "{{ cli }}"
+        authorize: yes
+        parents:
+          - interface FastEthernet0/0
+        lines:
+          - ip vrf forwarding Customer_A
+          - exit
+
+    - name: Configure IP address - Interface FastEthernet0/0
+      ios_config:
+        provider: "{{ cli }}"
+        authorize: yes
+        parents:
+          - interface FastEthernet0/0
+        lines:
+          - ip address 10.0.1.1 255.255.255.252
+          - exit
+
+    - name: Configure PE1 BGP for VRF Customer_A
+      ios_config:
+        provider: "{{ cli }}"
+        authorize: yes
+        parents:
+          - router bgp 65000
+        lines:
+          - neighbor 10.0.0.4 remote-as 65000
+          - neighbor 10.0.0.4 update-source Loopback0
+          - address-family vpnv4
+          - neighbor 10.0.0.4 activate
+          - exit-address-family
+          - exit
+
+    - name: Remove OSPF 2 configuration
+      ios_config:
+        provider: "{{ cli }}"
+        authorize: yes
+        parents:
+          - no router ospf 2
+
+    - name: Configure OSPF 2 for VRF Customer_A
+      ios_config:
+        provider: "{{ cli }}"
+        authorize: yes
+        parents:
+          - router ospf 2 vrf Customer_A
+        lines:
+          - router-id 10.0.1.1
+          - exit
+
+    - name: Configure OSPF 2 - Interface FastEthernet0/0
+      ios_config:
+        provider: "{{ cli }}"
+        authorize: yes
+        parents:
+          - interface FastEthernet0/0
+        lines:
+          - ip ospf 2 area 0
+          - exit
+
+    - name: Configure BGP Redistribution for VRF Customer_A
+      ios_config:
+        provider: "{{ cli }}"
+        authorize: yes
+        parents:
+          - router bgp 65000
+        lines:
+          - address-family ipv4 vrf Customer_A
+          - redistribute ospf 2
+          - exit-address-family
+          - exit
+
+    - name: Configure OSPF Redistribution
+      ios_config:
+        provider: "{{ cli }}"
+        authorize: yes
+        parents:
+          - router ospf 2
+        lines:
+          - redistribute bgp 65000 subnets
+          - exit
+
